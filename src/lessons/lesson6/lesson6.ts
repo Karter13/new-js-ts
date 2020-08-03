@@ -220,14 +220,73 @@ const audi: CarBrand = {
 
 const brands: Array<CarBrand> = [audi, bmw, mercedes];
 
+//task02-1
 // const newModel: CarModelType = {
 //     modelName: 'A7',
 //     class: CAR_CLASSES.E,
 //     presentationYear: 2018,
 // };
-//
-// const newArray:  Array<CarBrand> = [...brands];
-// newArray
+
+// const copyBrands: Array<CarBrand> = brands.map(brand => {
+//     if (brand.brandName === 'Audi') {
+//         return {...brand, brandModels: [...brand.brandModels, newModel]};
+//     } else {
+//         return brand;
+//     }
+// });
+
+
+//task02-02-1
+// const copyBrands: Array<CarBrand> = brands.map(brand => {
+//     if(brand.brandName === 'Mercedes-Benz') {
+//         return {...brand, brandModels:  brand.brandModels.filter(item => item.modelName !== 'S-class')}
+//     } else {
+//         return brand;
+//     }
+// });
+
+//task02-02-2
+// let brandName = '';
+// brands.forEach(item => {
+//     let result = item.brandModels.find(i => i.modelName === 'S-class');
+//     if(result) {
+//         brandName = item.brandName
+//     }
+// });
+// const copyBrands: Array<CarBrand> = brands.map(brand => {
+//     if(brand.brandName === brandName) {
+//         return {...brand, brandModels:  brand.brandModels.filter(item => item.modelName !== 'S-class')}
+//     } else {
+//         return brand;
+//     }
+// });
+
+//task03-01
+
+let brandName = '';
+brands.forEach(item => {
+    let result = item.brandModels.find(i => i.modelName === '7 series');
+    if (result) {
+        brandName = item.brandName;
+    }
+});
+const copyBrands: Array<CarBrand> = brands.map(brand => {
+    if (brand.brandName === brandName) {
+        return {
+            ...brand, brandModels: brand.brandModels.map(model => {
+                if (model.modelName === '7 series') {
+                    return {...model, presentationYear: 2016};
+                }
+                return model;
+            })
+        }
+    }
+    return brand;
+});
+
+
+console.log('brands', brands);
+console.log('copyBrands', copyBrands);
 
 // Task 03
 // Написать функцию, которая принимает массив brands в качестве аргумента и
