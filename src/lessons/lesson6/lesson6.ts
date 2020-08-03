@@ -13,6 +13,16 @@ console.log('lesson6');
 // https://medium.com/@stasonmars/%D0%BA%D0%BE%D0%BF%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D0%B5-%D0%BE%D0%B1%D1%8A%D0%B5%D0%BA%D1%82%D0%BE%D0%B2-%D0%B2-javascript-d25c261a7aff
 // https://nuancesprog.ru/p/4443/
 
+// let someObj: any = {name: 'Maikl'};
+// let a = someObj;
+// let b = someObj;
+//
+// b.age = 40;
+// someObj = null;
+// a = null;
+// console.log(someObj);
+// console.log(b);
+// console.log(a);
 
 
 // Task 01
@@ -29,10 +39,11 @@ type Man = {
     hasChildren: boolean;
     hasHighEducation: boolean;
 };
+
 interface IPerson extends Man {
-   parents: Array<Man>;
-   siblings: Array<Man>;
-   hasSpouse: boolean;
+    parents: Array<Man>;
+    siblings: Array<Man>;
+    hasSpouse: boolean;
 }
 
 const person: IPerson = {
@@ -56,7 +67,59 @@ const person: IPerson = {
         },
     ],
     siblings: [],
-}
+};
+
+//task1
+// const newObj: IPerson = {...person, age: 40};
+
+
+//task2
+// const sister: Man = {
+//     name: 'Anna',
+//     age: 30,
+//     hasChildren: true,
+//     hasHighEducation: true
+// };
+// const newObj: IPerson = {...person, siblings: [sister, ...person.siblings]};
+
+//task3
+//  const newObj: IPerson = {
+//     ...person, parents: person.parents.map(item => {
+//         if(item.name === 'Dmitry') {
+//             return {...item, age: 70}
+//         }
+//         return item;
+//      })
+//  };
+//
+
+//task4
+// const sister: Man = {
+//     name: 'Anna',
+//     age: 30,
+//     hasChildren: true,
+//     hasHighEducation: true
+// };
+// const brother: Man = {
+//     name: 'Lesha',
+//     age: 21,
+//     hasChildren: false,
+//     hasHighEducation: tr ue
+// };
+// person.siblings.push(sister);
+// person.siblings.push(brother);
+//
+// const newObj: IPerson = {
+//     ...person, siblings: person.siblings.map(item => {
+//         if(item.name === 'Anna') {
+//             return {...item, hasChildren: false}
+//         }
+//         return item;
+//     })
+// };
+
+// console.log(person);
+// console.log(newObj);
 
 
 // Task 02
@@ -155,7 +218,16 @@ const audi: CarBrand = {
     ],
 }
 
-const brands:Array<CarBrand> = [audi, bmw, mercedes];
+const brands: Array<CarBrand> = [audi, bmw, mercedes];
+
+// const newModel: CarModelType = {
+//     modelName: 'A7',
+//     class: CAR_CLASSES.E,
+//     presentationYear: 2018,
+// };
+//
+// const newArray:  Array<CarBrand> = [...brands];
+// newArray
 
 // Task 03
 // Написать функцию, которая принимает массив brands в качестве аргумента и
