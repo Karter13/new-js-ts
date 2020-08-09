@@ -1,6 +1,7 @@
 import React from 'react';
 // import './lessons/lesson2/lesson2';
-import './lessons/lesson6/lesson6';
+// import './lessons/lesson6/lesson6';
+import './lessons/lesson7/lesson7';
 
 function App() {
   return (

@@ -1,5 +1,6 @@
 // Lesson 7
 
+
 // https://learn.javascript.ru/settimeout-setinterval
 // https://developer.mozilla.org/ru/docs/Web/API/WindowTimers/setTimeout
 // https://learn.javascript.ru/callbacks
@@ -14,10 +15,20 @@ console.log('lesson 7');
 // Написать функцию которая выводит в консоль фразу "I am a programmer".
 // Вызвать эту функцию с задержкой 1с.
 
+// const user = () => {
+//     console.log('I am a programmer');
+// };
+// let userId = setTimeout(user, 1000);
 
 // Task 02
 // Написать функцию которая в качестве рагумента принимает переменную {name} и выводит в консоль фразу "My name is {name}".
 // Вызвать эту функцию с задержкой 1с и передать в качестве аргумента любое имя.
+
+let showName = (name: string) => {
+  console.log(`My name is ${name}`)
+}
+
+setTimeout(showName, 1000, 'Maikl');
 
 
 // Task 03
@@ -53,5 +64,5 @@ const functionObj: FunctionsObjectType = {
     '1': (n) => n * n,
     '2': (n) => n - (n * 0.5),
     '3': (n) => n * (n * 0.5),
-}
+};
 
