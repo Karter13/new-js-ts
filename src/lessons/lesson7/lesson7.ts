@@ -1,6 +1,5 @@
 // Lesson 7
 
-
 // https://learn.javascript.ru/settimeout-setinterval
 // https://developer.mozilla.org/ru/docs/Web/API/WindowTimers/setTimeout
 // https://learn.javascript.ru/callbacks
@@ -15,34 +14,88 @@ console.log('lesson 7');
 // Написать функцию которая выводит в консоль фразу "I am a programmer".
 // Вызвать эту функцию с задержкой 1с.
 
-// const user = () => {
-//     console.log('I am a programmer');
-// };
-// let userId = setTimeout(user, 1000);
+const printText = (): void => console.log("I am a programmer");
+//setTimeout(printText, 1000);
+
 
 // Task 02
 // Написать функцию которая в качестве рагумента принимает переменную {name} и выводит в консоль фразу "My name is {name}".
 // Вызвать эту функцию с задержкой 1с и передать в качестве аргумента любое имя.
 
-let showName = (name: string) => {
-  console.log(`My name is ${name}`)
+const printText2 = ( name: string): void => console.log(`My name is ${name}`);
+//setTimeout(printText2, 1000, 'Vital');
+
+function printText3(name: string): void {
+    setTimeout(() => console.log(`My name is ${name}`), 1000, name);
 }
-
-setTimeout(showName, 1000, 'Maikl');
-
+//printText3('Alex');
 
 // Task 03
 // Написать функцию которая  принимает 3 аргумента (перве 2 - колличество милисекунд, 3й - любое имя) и которая
 // интервально вызывает функции из тасок 01 и 02 в соответствии с переданными аргументами
 
+type ReturnedIdsType = {
+    id1: NodeJS.Timeout;
+    id2: number;
+}
+
+function intervalPrint(num1: number, num2: number, name: string): ReturnedIdsType {
+    const id1:NodeJS.Timeout = setInterval(printText, num1);
+    const id2:number = setInterval(printText2, num2, name);
+    return {
+        id1,
+        id2
+    }
+}
+
+//intervalPrint(1000, 3000, 'Eugene');
+
+
 // Task 04
 // модернизировать функцию из Task 03 так, что бы можно было остановить вызовы вложенных функций
+
+const idsObj = intervalPrint(1000, 3000, 'Eugene');
+clearInterval(idsObj.id1);
+clearInterval(idsObj.id2);
 
 // Task 05
 // Написать функцию (randomNum) которая генерирует целое число от 0 до 20.
 // Написать функцию (sumRandomNums) которая принимает 2 аргумента: 1) функция randomNum, 2) число сгенерированное randomNum
 // функция sumRandomNums должна вернуть сумму всех сгенерированных randomNum чисел, количество этих чисел определяется
 // 2ым аргументом sumRandomNums
+
+// function getRandomInt(min, max) {
+//     min = Math.ceil(min);
+//     max = Math.floor(max);
+//     return Math.floor(Math.random() * (max - min)) + min; //Максимум не включается, минимум включается
+// }
+
+// const randomNum = (): number => Math.floor(Math.random() * 20);
+//
+// const sumRandomNums =(callBack: () => number, num: number): number => {
+//     let sum: number = 0;
+//     for (let i = 0; i <= num; i ++) {
+//         const tempNum: number = callBack();
+//         console.log(tempNum)
+//         sum += tempNum;
+//     }
+//     return sum;
+// }
+
+const randomNum=():number=>Math.floor(Math.random()*20);
+
+const sumRandomNums = (callback:()=>number,num:number, acc = 1):number=>{
+    if(num===1){
+        return acc;
+    } else {
+        let tempSum = acc + callback();
+        return sumRandomNums(callback,num-1, tempSum);
+    }
+}
+
+console.log(sumRandomNums(randomNum, 100));
+
+//console.log(sumRandomNums(randomNum, randomNum()))
 
 // Task 06**
 // 1. написать функцию которая принимает число в качестве аргумента и возвращает функцию которая
@@ -53,16 +106,46 @@ setTimeout(showName, 1000, 'Maikl');
 // сгенерирует функция с диапазоном до 8.
 
 type FunctionsObjectType = {
-    '0': (n: number) => number;
-    '1': (n: number) => number;
-    '2': (n: number) => number;
-    '3': (n: number) => number;
+    [key: number ] : (n: number) => number;
 }
 
 const functionObj: FunctionsObjectType = {
-    '0': (n) => n + 2,
-    '1': (n) => n * n,
-    '2': (n) => n - (n * 0.5),
-    '3': (n) => n * (n * 0.5),
-};
+    '0': (n): number => n + 2,
+    '1': (n): number => n * n,
+    '2': (n): number => n - (n * 0.5),
+    '3': (n): number => n * (n * 0.5),
+    '4': (n): number => n * (n / 3),
+}
 
+type randomNumberType = () => number;
+
+const getRange = (max: number):randomNumberType  => (): number => Math.floor(Math.random() * (max + 1));
+
+const getFour: randomNumberType = getRange(4);
+const getEight: randomNumberType = getRange(8);
+
+const complexFunc = (obj: FunctionsObjectType, generateFour: randomNumberType, generateEight: randomNumberType, num: number) => {
+    let resultNum = num;
+    const countOfiteration = generateEight()
+    for (let i = 0; i <= countOfiteration; i++) {
+        resultNum = obj[generateFour()](resultNum);
+    }
+    return resultNum;
+}
+
+// console.log(complexFunc(functionObj, getFour, getEight, 5));
+
+const key = '[object Object]';
+
+let obj = {
+    name: 'Eugene',
+    age: 32,
+    [key]: 'bla',
+}
+
+const getKey = () => Promise.resolve();
+
+//@ts-ignore
+obj['Hello world!'] = 'Yo Yo Yo';
+//@ts-ignore
+//console.log(obj[getKey()])
